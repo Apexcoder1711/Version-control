@@ -20,14 +20,16 @@ yargs(hideBin(process.argv))
 
 
   .command(
-    "add <file>", 
+    "add <filePath>", 
     "Add file to the repo", 
     (yargs) => {yargs.positional("file" , {
         describe : "File to add the staging area",
         type : "string"
     });
     }, 
-    addRepo
+    (argv) =>{
+      addRepo(argv.filePath);
+    }
   )
 
   .command(
