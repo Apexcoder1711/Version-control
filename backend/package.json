@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "Version control",
   "dependencies": {
+    "@supabase/supabase-js": "^2.104.0",
+    "dotenv": "^17.4.2",
     "uuid": "^14.0.0",
     "yargs": "^18.0.0"
   }

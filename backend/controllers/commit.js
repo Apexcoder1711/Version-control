@@ -11,24 +11,16 @@ async function commitRepo(message) {// commitRepo function banaya jo 'message' a
   
 
   const repoPath = path.resolve(process.cwd(), ".meraGit"); // Current working directory mein .meraGit folder ka absolute path find kiya.
-  
-
   const stagedPath = path.join(repoPath, "staging"); // .meraGit ke andar 'staging' folder ka path jahan temporary files rakhi hain.
-  
-
   const commitPath = path.join(repoPath, "commits"); // .meraGit ke andar 'commits' folder ka path jahan permanent history save hogi.
   
 
   try {
     const commitID = uuidv4(); // Ek unique ID generate ki (e.g., '1b9d6bcd-bbfd-4b2d...').
-    
-
     const commitDir = path.join(commitPath, commitID); // Commits folder ke andar is unique ID ke naam ka ek naya folder path banaya.
-    
 
     await fs.mkdir(commitDir, { recursive: true }); // Is unique ID waale folder ko physically create kiya.
-    
-
+ 
     const files = await fs.readdir(stagedPath);  // Staging area mein jitni bhi files hain, un sabki list read ki.
     
 
