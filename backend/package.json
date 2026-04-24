@@ -11,7 +11,13 @@
   "description": "Version control",
   "dependencies": {
     "@supabase/supabase-js": "^2.104.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.5.0",
     "uuid": "^14.0.0",
     "yargs": "^18.0.0"
   }
