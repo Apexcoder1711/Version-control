@@ -1,35 +1,69 @@
-const createRepository = (req , res) =>{
-    res.send("Repository Created !");
+const mongoose = require("mongoose");
+const Repository = require("../models/repoModel");
+const User = require("../models/userModel");
+const Issue = require("../models/issueModel");
+
+async function createRepository (req , res) {
+    const  { owner , name , issues , content , description , visibility } = req.body;
+    
+    try{
+        if(!name){
+            return res.status(400).json({error : "Repository name is required"});
+        }
+
+        if(!mongoose.Types.ObjectId.isValid(owner)){
+            return res.status(400).json({error : "User id is required"});
+        }
+
+        const newRepository = new Repository({
+            name,
+            description,
+            visibility,
+            owner,
+            content,
+            issues
+        });
+
+        const result = await newRepository.save();
+
+        res.status(201).json({
+            message : "Repository created",
+            repositoryID : result._id,
+        })
+    } catch (err) {
+        console.error("Error during repository creation ", err);
+        return res.status(500).json({ message: "Server error!" });
+    }
 }
 
-const getAllRepository = (req , res) =>{
+async function  getAllRepository (req , res) {
     res.send("All repository fetched !");
 }
 
-const fetchRepositoryById = (req , res) =>{
+async function  fetchRepositoryById  (req , res){
     res.send("Repository details fetched");
 }
 
 
-const fetchRepositoryByName = (req , res) =>{
+async function  fetchRepositoryByName (req , res) {
     res.send("Repository details fetched");
 }
 
 
-const fetchRepositoryForCurrentUser = (req , res) =>{
+async function  fetchRepositoryForCurrentUser (req , res) {
     res.send("Repository for Logged In user fetched !!");
 }
 
 
-const updateRepositoryById = (req , res) =>{
+async function  updateRepositoryById(req , res) {
     res.send("Repository  updated !");
 }
 
-const toggleVisibilityById = (req ,res) =>{
+async function  toggleVisibilityById (req ,res) {
     res.send("Visibility toggled !");
 }
 
-const deleteRepositoryById = (req ,res) =>{
+async function  deleteRepositoryById  (req ,res){
     res.send("Delete Repository By Id");
 }
 
