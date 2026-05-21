@@ -53,7 +53,7 @@ async function signup(req,res){
             {expiresIn : "1h"}
         );
 
-        res.json({token});
+        res.json({token , userId:result.insertedId});
     }catch(err){
         console.error("Error during signup :" , err.message);
         res.status(500).send("server error");

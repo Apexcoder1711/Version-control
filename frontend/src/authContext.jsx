@@ -1,5 +1,5 @@
-import React,{createContext , useState , useEffect , useContext} from 'react';
-import { Children } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import {createContext , useState , useContext} from 'react';
 
 const AuthContext = createContext();
 
@@ -7,18 +7,12 @@ export const useAuth = () =>{
     return useContext(AuthContext);
 }
 
-export const AuthProvider = ({Children})=>{
-    const [currentUser , setCurrentUser] = useState(null);
-    useEffect(()=>{
-        const userId = localStorage.getItem('userId');
-        if(userId){
-            setCurrentUser(userId);
-        }
-    }, []);
+export const AuthProvider = ({children})=>{
+    const [currentUser , setCurrentUser] = useState(() => localStorage.getItem('userId'));
 
     const value = {
         currentUser , setCurrentUser
     }
 
-    return <AuthContext.Provider value={value}>{Children}</AuthContext.Provider>
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
