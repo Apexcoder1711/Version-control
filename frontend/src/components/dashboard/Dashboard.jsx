@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.css";
-
+import Navbar from "../Navbar";
 const Dashboard = () => {
   const [repositories, setRepositories] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,11 +19,10 @@ useEffect(() => {
         );
         const data = await response.json();
         console.log("Repo found:", data);
-        setRepositories(Array.isArray(data.repositories) ? data.repositories : []);
+        setRepositories(data.repositories);
         
       } catch (err) {
         console.error("Error while fecthing repositories: ", err);
-        setRepositories([]);
       }
     };
 
@@ -32,10 +31,10 @@ useEffect(() => {
       try {
         const response = await fetch(`http://localhost:3000/repo/all`);
         const data = await response.json();
-        setSuggestedRepositories(Array.isArray(data) ? data : []);
+        setSuggestedRepositories(data);
+        console.log(suggestedRepositories);
       } catch (err) {
         console.error("Error while fecthing repositories: ", err);
-        setSuggestedRepositories([]);
       }
     };
 
@@ -59,6 +58,7 @@ useEffect(() => {
   
    return (
     <>
+       <Navbar /> 
       <section id="dashboard">
         <aside>
           <h3>Suggested Repositories</h3>
@@ -70,7 +70,6 @@ useEffect(() => {
               </div>
             );
           })}
-          {suggestedRepositories.length === 0 && <p>No repositories found.</p>}
         </aside>
         <main>
           <h2>Your Repositories</h2>
@@ -90,7 +89,6 @@ useEffect(() => {
               </div>
             );
           })}
-          {searchResults.length === 0 && <p>No repositories found.</p>}
         </main>
         <aside>
           <h3>Upcoming Events</h3>
